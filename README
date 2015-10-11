@@ -1,0 +1,36 @@
+Changes from original project:
+* virtual tuner project adopted to kernels 4.0+ and simplified
+* simplified workflow (messaging removed)
+* simple user-level application added
+* read_status always return FE_HAS_LOCK
+
+Original project http://code.google.com/p/vtuner/
+
+### Compile kernel part:
+* apply patch to kernel:
+patch -p1 < 0001-virtual-tuner-project-adopted-to-kernels-4.0-and-sim.patch
+
+* enable CONFIG_DVB_VTUNERC and rebuild kernel
+
+### Compile user-level application:
+
+* ./build.sh
+
+note 1: uncomment lines in build.sh for ARM platform
+note 2: change 
+#define READ_SIZE 7*188
+#define UDELAY 5
+for different bitrates
+
+### Run:
+# ./vtuner-simple input.ts 
+40090624 bytes written, speed = 76.47 Mbit/sec 
+75666052 bytes written, speed = 72.16 Mbit/sec 
+117306924 bytes written, speed = 74.58 Mbit/sec 
+
+### Stream can be received by dvbsnoop for example:
+# dvbsnoop -adapter 0 -s ts -tsraw -b  > /mnt/ram/dump.ts
+
+--
+Abylay Ospan
+aospan@netup.ru

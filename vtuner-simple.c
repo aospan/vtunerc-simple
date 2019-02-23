@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <time.h>
+#include <unistd.h>
 
 #define VTUNER_MAJOR        226
 #define VTUNER_GET_MESSAGE  _IOR(VTUNER_MAJOR, 1, struct vtuner_message *)

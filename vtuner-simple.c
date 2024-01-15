@@ -4,6 +4,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <time.h>
+#include <unistd.h>
+#include <inttypes.h>
 
 #define VTUNER_MAJOR        226
 #define VTUNER_GET_MESSAGE  _IOR(VTUNER_MAJOR, 1, struct vtuner_message *)
@@ -52,7 +54,7 @@ int main(int argc, char **argv){
             bw += write(vtuner_control, &buf[0], READ_SIZE);
             usleep(UDELAY);
             if (time(0) > last+3){
-                printf("%lld bytes written, speed = %.2f Mbit/sec \n", bw, (8*(double)bw/(time(0) - start))/1048576 );
+                printf("%" PRId64 " bytes written, speed = %.2f Mbit/sec \n", bw, (8*(double)bw/(time(0) - start))/1048576 );
                 last = time(0);
             }
         }
